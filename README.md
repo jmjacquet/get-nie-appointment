@@ -45,14 +45,9 @@ brew install geckodriver
 ## Running the script
 
 ```sh
-python3 nie.py <city> <passport> <full name> <country> <year of birth> <telephone> <email> <appointment type>
+python3 nie.py
 ```
 
-for example
-
-```sh
-python3 nie.py  Madrid AAE1111111 "Ezequiel Leonardo Aceto" ARGENTINA XXXX 64XXXXXXX my-persona-email@gmail.com "POLICIA-ASIGNACIÓN DE NIE"
-```
 
 ## Parameters
 

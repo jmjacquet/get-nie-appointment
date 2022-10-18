@@ -52,3 +52,32 @@ python3 nie.py
 ## Parameters
 
 For getting the requiered parameters, city and appointment type, visit: https://sede.administracionespublicas.gob.es/icpplustieb/index/ and complete the process one type manually. Then get the appointment type based on your city (which may vary from city to city).
+
+## Settings File
+Create a settings.ini file (added to .gitignore)
+
+[settings]
+city = Barcelona
+;city = Castellón
+;appointmentType = POLICIA - RECOGIDA DE TARJETA DE IDENTIDAD DE EXTRANJERO (TIE)
+;appointmentType = AUTORIZACIÓN DE REGRESO
+;appointmentType = POLICIA-TOMA DE HUELLAS (EXPEDICIÓN DE TARJETA) Y RENOVACIÓN DE TARJETA DE LARGA DURACIÓN
+;appointmentType = POLICIA-CERTIFICADO DE REGISTRO DE CIUDADANO DE LA U.E.
+;appointmentType = POLICIA-CERTIFICADOS (DE RESIDENCIA, DE NO RESIDENCIA Y DE CONCORDANCIA)
+;appointmentType = POLICIA-CERTIFICADOS Y ASIGNACION NIE (NO COMUNITARIOS)
+;appointmentType = 4010
+appointmentType = 4036
+doc_type = nie
+passport_nie = Y9448941A
+passport_nie_expire_date = 03/11/2022
+name = MARIA DE LOS MILAGROS YOZZIA
+country = ARGENTINA
+# Sede
+placeAddress = 14
+# Oficina de la cita (2da selección)
+;oficina_cita = 4
+email = jmjacquet@gmail.com
+tel = 657274449
+birthyear = 1997
+max_wanted_date = 1/11/2022
+days_after = 0

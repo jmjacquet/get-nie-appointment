@@ -7,14 +7,17 @@ import logging
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common import alert
 from selenium.common.exceptions import NoSuchElementException
+
 
 from decouple import config
 from tabulate import tabulate
 from constants import doc_type_id, URL_SEDE, sede_cfg, SECONDS_FOR_RECONNECTION
 from exceptions import NoOfficeException
+from playsound import playsound
 
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.ERROR)
+logging.basicConfig(format='%(levelname)s: %(asctime)s || %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -33,7 +36,7 @@ class AppointmentDriver:
     @classmethod
     def start(cls):
         # open the nie website
-        print("Connecting to {}...".format(URL_SEDE))
+        logger.info("Connecting to {}...".format(URL_SEDE))
         cls.driver.get(URL_SEDE)
         sleep(1)
 
@@ -81,8 +84,8 @@ class AppointmentDriver:
             cls._click_button("btnCancelar")
         except NoSuchElementException:
             pass
-        cls.driver.switch_to_alert()
-        cls.driver.find_element_by_id("YesBtn").click()
+        alert = cls.driver.switch_to.alert
+        alert.accept()
 
     @classmethod
     def require_appointment(cls):
@@ -287,9 +290,8 @@ class AppointmentApp(AppointmentDriver):
             if self.find_better_appointment():
                 print("FOUND ONE!! in {} offices.".format(self.selected_office))
                 return True
-            self.wait(1000)
-            # cancel_and_leave()
-            self.start()
+            else:
+                self._cancel_and_leave()
         else:
             self._click_button("btnSubmit")
         return False
@@ -359,7 +361,7 @@ if __name__ == "__main__":
         while True:
             if appointment.too_many_redirects():
                 retry_num += 1
-                print("Reconnecting... waiting {} seconds for retry Nº {}.".format(SECONDS_FOR_RECONNECTION, retry_num))
+                logger.info("Reconnecting... waiting {} seconds for retry Nº {}.".format(SECONDS_FOR_RECONNECTION, retry_num))
                 sleep(SECONDS_FOR_RECONNECTION)
                 AppointmentApp.start()
             try:
@@ -375,9 +377,9 @@ if __name__ == "__main__":
                     continue
                 appointment.add_extra_info()
                 if appointment.select_appointment():
+                    playsound("clock.mp3")
                     break
             except Exception as e:
-                logger.error(e)
                 appointment.no_appointment()
                 continue
 

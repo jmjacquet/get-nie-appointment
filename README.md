@@ -52,10 +52,10 @@ For getting the requiered parameters, city and appointment type, visit: https://
 
 ## Settings File
 Create a settings.ini file (added to .gitignore)
-
+```sh
 [settings]
 city = Barcelona
-# Defined in constants.py
+Defined in constants.py
 appointmentType = 4036
 doc_type = nie
 passport_nie = YNNNNNNN
@@ -72,3 +72,4 @@ birthyear = 1997
 # Search results from (today+days_after) to (max_wanted_date)
 max_wanted_date = 1/11/2022
 days_after = 0
+```

@@ -4,8 +4,8 @@ from typing import List
 import enum
 
 
-# URL_SEDE = "https://icp.administracionelectronica.gob.es/icpplus/"
-URL_SEDE = "https://sede.administracionespublicas.gob.es/icpplustieb/"
+URL_SEDE = "https://icp.administracionelectronica.gob.es/icpplus/"
+# URL_SEDE = "https://sede.administracionespublicas.gob.es/icpplus/"
 
 
 SECONDS_FOR_RECONNECTION = 300

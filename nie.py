@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 from datetime import datetime, timedelta
 from time import sleep
 import logging
 
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common import alert
@@ -20,10 +22,11 @@ from playsound import playsound
 logging.basicConfig(format='%(levelname)s: %(asctime)s || %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
+options = Options()
+options.binary_location = '/usr/bin/firefox'
 
 class AppointmentDriver:
-    driver = webdriver.Firefox()
+    driver = webdriver.Firefox(options=options)
 
     @classmethod
     def wait(cls, time):
@@ -37,7 +40,7 @@ class AppointmentDriver:
     def start(cls):
         # open the nie website
         logger.info("Connecting to {}...".format(URL_SEDE))
-        cls.driver.get(URL_SEDE)
+        resp = cls.driver.get(URL_SEDE)
         sleep(1)
 
     @classmethod
@@ -379,6 +382,9 @@ if __name__ == "__main__":
                 if appointment.select_appointment():
                     playsound("clock.mp3")
                     break
+            except NoSuchElementException as e:
+                logger.info(f"Element not found... {e}")
+                break
             except Exception as e:
                 appointment.no_appointment()
                 continue
